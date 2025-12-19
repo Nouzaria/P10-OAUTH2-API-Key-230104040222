@@ -15,20 +15,16 @@ Proyek ini adalah implementasi sistem manajemen produk sederhana yang menerapkan
 
 ## 🚀 Fitur Utama
 
-1. 
-**Akses Publik (API Key):** Memungkinkan aplikasi pihak ketiga untuk melihat daftar produk menggunakan header `x-api-key`.
+1. **Akses Publik (API Key):** Memungkinkan aplikasi pihak ketiga untuk melihat daftar produk menggunakan header `x-api-key`.
 
 
-2. 
-**Akses Privat (OAuth 2.0/JWT):** Mengamankan operasi sensitif (Tambah, Edit, Hapus) menggunakan *Bearer Token*.
+2. **Akses Privat (OAuth 2.0/JWT):** Mengamankan operasi sensitif (Tambah, Edit, Hapus) menggunakan *Bearer Token*.
 
 
-3. 
-**Otorisasi Berbasis Peran:** Membedakan hak akses antara `admin` (akses penuh) dan `user` biasa (akses terbatas).
+3. **Otorisasi Berbasis Peran:** Membedakan hak akses antara `admin` (akses penuh) dan `user` biasa (akses terbatas).
 
 
-4. 
-**Keamanan Password:** Implementasi *hashing* otomatis menggunakan `bcryptjs` sebelum data disimpan ke database.
+4. **Keamanan Password:** Implementasi *hashing* otomatis menggunakan `bcryptjs` sebelum data disimpan ke database.
 
 
 
@@ -36,24 +32,19 @@ Proyek ini adalah implementasi sistem manajemen produk sederhana yang menerapkan
 
 ## 🛠️ Teknologi yang Digunakan
 
-* 
-**Runtime:** Node.js 
+* **Runtime:** Node.js 
 
 
-* 
-**Framework:** Express.js 
+* **Framework:** Express.js 
 
 
-* 
-**Database:** MongoDB Atlas (Mongoose ODM) 
+* **Database:** MongoDB Atlas (Mongoose ODM) 
 
 
-* 
-**Autentikasi:** JSON Web Tokens (JWT) & API Key 
+* **Autentikasi:** JSON Web Tokens (JWT) & API Key 
 
 
-* 
-**Security:** bcryptjs (Password Hashing) 
+* **Security:** bcryptjs (Password Hashing) 
 
 
 
@@ -62,14 +53,14 @@ Proyek ini adalah implementasi sistem manajemen produk sederhana yang menerapkan
 ## 📂 Struktur Proyek
 
 ```text
-[cite_start]├── controllers/      # Logika handler untuk auth dan produk [cite: 183]
-[cite_start]├── middleware/       # Validasi API Key dan JWT [cite: 183]
-[cite_start]├── models/           # Skema Mongoose (User, Product, ApiKey) [cite: 183]
-[cite_start]├── routes/           # Definisi endpoint API [cite: 183]
-[cite_start]├── seeders/          # Script untuk mengisi data awal database [cite: 183]
-[cite_start]├── utils/            # Fungsi utilitas (Generate Token) [cite: 183]
-[cite_start]├── .env              # Konfigurasi variabel lingkungan [cite: 183]
-[cite_start]└── server.js         # Entry point aplikasi utama [cite: 183]
+├── controllers/      # Logika handler untuk auth dan produk 
+├── middleware/       # Validasi API Key dan JWT
+├── models/           # Skema Mongoose (User, Product, ApiKey)
+├── routes/           # Definisi endpoint API
+├── seeders/          # Script untuk mengisi data awal database
+├── utils/            # Fungsi utilitas (Generate Token)
+├── .env              # Konfigurasi variabel lingkungan
+└── server.js         # Entry point aplikasi utama
 
 ```
 
@@ -122,31 +113,21 @@ node server.js
 
 | Method | Endpoint | Auth | Deskripsi |
 | --- | --- | --- | --- |
-| GET | `/api/v1/products/public` | API Key | Mengambil semua produk (Read-Only).
-
- |
+| GET | `/api/v1/products/public` | API Key | Mengambil semua produk (Read-Only).|
 
 ### 2. Autentikasi (Token Grant)
 
 | Method | Endpoint | Body (JSON) | Deskripsi |
 | --- | --- | --- | --- |
-| POST | `/api/v1/auth/token` | `username`, `password` | Login untuk mendapatkan Access Token (JWT).
-
- |
+| POST | `/api/v1/auth/token` | `username`, `password` | Login untuk mendapatkan Access Token (JWT).|
 
 ### 3. Akses Privat (Otorisasi Admin)
 
 | Method | Endpoint | Auth | Status Diharapkan |
 | --- | --- | --- | --- |
-| POST | `/api/v1/products/private` | Bearer Token | 201 Created (Hanya Admin).
-
- |
-| PUT | `/api/v1/products/private/:id` | Bearer Token | 200 OK (Hanya Admin).
-
- |
-| DELETE | `/api/v1/products/private/:id` | Bearer Token | 200 OK (Hanya Admin).
-
- |
+| POST | `/api/v1/products/private` | Bearer Token | 201 Created (Hanya Admin).|
+| PUT | `/api/v1/products/private/:id` | Bearer Token | 200 OK (Hanya Admin).|
+| DELETE | `/api/v1/products/private/:id` | Bearer Token | 200 OK (Hanya Admin).|
 
 ---
 
@@ -154,13 +135,10 @@ node server.js
 
 Berdasarkan hasil praktikum, sistem ini telah lolos pengujian skenario berikut:
 
-* 
-**Gagal (401 Unauthorized):** Akses publik tanpa API Key atau API Key palsu.
+* **Gagal (401 Unauthorized):** Akses publik tanpa API Key atau API Key palsu.
 
 
-* 
-**Gagal (403 Forbidden):** Akses privat tanpa Token, Token palsu, atau Login sebagai `userbiasa` saat mencoba operasi CRUD.
+* **Gagal (403 Forbidden):** Akses privat tanpa Token, Token palsu, atau Login sebagai `userbiasa` saat mencoba operasi CRUD.
 
 
-* 
-**Sukses (200 OK / 201 Created):** Akses privat menggunakan Token Admin yang valid.
+* **Sukses (200 OK / 201 Created):** Akses privat menggunakan Token Admin yang valid.
